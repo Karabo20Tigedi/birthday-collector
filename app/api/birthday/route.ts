@@ -24,12 +24,7 @@ function isValidDate(dateStr: string): boolean {
   if (!regex.test(dateStr)) return false;
 
   const date = new Date(dateStr + "T00:00:00Z");
-  if (isNaN(date.getTime())) return false;
-
-  // Must not be in the future
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return date <= today;
+  return !isNaN(date.getTime());
 }
 
 export async function POST(request: NextRequest) {

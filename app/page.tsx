@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 
 // ── Confetti ────────────────────────────────────────────────────────
 // Lightweight canvas-based confetti (no extra dependency needed)
@@ -93,13 +93,6 @@ export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const { canvasRef, fire } = useConfetti();
-
-  // Prevent future dates — compute today's date string
-  const [maxDate, setMaxDate] = useState("");
-  useEffect(() => {
-    const today = new Date();
-    setMaxDate(today.toISOString().split("T")[0]);
-  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -224,7 +217,6 @@ export default function Home() {
                       type="date"
                       required
                       value={birthday}
-                      max={maxDate}
                       onChange={(e) => setBirthday(e.target.value)}
                       className="input-field"
                       disabled={status === "loading"}
